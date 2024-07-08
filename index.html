@@ -37,18 +37,44 @@
             margin-bottom: 20px;
         }
         
-        .logo-mini {
+        .logo-top {
             max-width: 100px; /* Adjust logo size */
             height: auto;
             right: 20px;
-            position: absolute;
-            
+            position: absolute;   
+        }
+
+        .logo-bottom {
+            max-width: 18%; /* Adjust logo size */
+            height: auto;
+            right: 20px;
+            bottom: 20px;
+            position: absolute;   
         }
 
         .choice-container {
             display: flex;
             align-items: center;
             margin-bottom: 10px;   
+        }
+
+        .btnstart {
+            background-color: #66bb6a;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 40%;
+            font-family: 'Baloo Bhai 2', cursive;
+            transition: all 0.5s;
+            font-size: 16px; /* Increase button font size */
+            display: inline-block;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
         }
 
         .btn {
@@ -62,41 +88,24 @@
             width: 40%;
             font-family: 'Baloo Bhai 2', cursive;
             transition: all 0.5s;
-            font-size: 16px; /* Increase button font size */
+            font-size: 1rem; /* Increase button font size */
             display: inline-block;
-        }
 
-
-        .btn span {
-          cursor: pointer;
-          display: inline-block;
-          position: relative;
-          transition: 0.5s;
         }
         
-        .btn span:after {
+        .btn:before {
           content: '\00bb';
-          position: absolute;
           opacity: 0;
-          top: -40%;
-          left: -40px;
           transition: 0.5s;
           font-size: 1.5rem;
         }
 
-        .btn:hover span {
-             padding-left: 15px;
+        .btn:hover {
+             padding-left: 25px;
         }
 
-        .btn:hover span:after{
-            background-color: #66bb6a;
+        .btn:hover:before{
             opacity: 1;
-            left: 0;
-        }
-
-        .choice-label {
-            font-weight: bold;
-            margin-right: 10px;
         }
 
         #score-container {
@@ -131,22 +140,12 @@
         }
 
         /* Positioning for fireworks */
-        .fireworks-left {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-        }
 
         .fireworks-right {
-            position: absolute;
-            top: 0;
+            position: relative;
             right: 50%;
             transform: translateX(50%);
-            width: 800px;
-            height: 800px;
+            width: 10vw;
         }
 
         #question {
@@ -161,24 +160,26 @@
     <div class="container" id="welcome-page">
         <img src="Banner.png" alt="Game Logo" class="logo">
         <h1>Welcome to Mini Q&A Game</h1>
-        <button id="start-game" class="btn thai">Start Game</button>
+        <button id="start-game" class="btnstart thai">Start Game</button>
     </div>
 
     <div class="container" id="game-page" style="display: none;">
-        <img src="Banner.png" alt="Game Logo" class="logo-mini">
+        <img src="Banner.png" alt="Game Logo" class="logo-top">
         
         <div class="image-card">
             <div id="question-container" class="thai">
                 <img id="question-image" src="" alt="Question Image" width="300vw">
+                <div> +1 </div>
                 <div id="question"></div>
-                <button class="btn thai"><span id="choice1"></span></button>
-                <button class="btn thai"><span id="choice2"></span></button>
+                <button class="btn thai" id="choice1"><span ></span></button>
+                <button class="btn thai" id="choice2"><span ></span></button>
             </div>
         </div>
+        <div id="logoresult"></div>
         <div id="score-container" class="thai">
             <h2>Game Over!</h2>
             <p id="final-score"></p>
-            <button id="restart" class="btn thai">Restart</button>
+            <button id="restart" class="btnstart thai">Restart</button>
         </div>
     </div>
 
@@ -186,7 +187,7 @@
         const questions = [
             {
                 question: "1.จากภาพ สื่อถึงเรื่องอะไร ?",
-                image: "https://lh3.googleusercontent.com/u/1/drive-viewer/AKGpiharwroQygUSBFxviaxQVx79Y-5e8Tr6vPbnodwCD_3yqj_yx6GPOrJgOPg9QkHraB7rKf-3AIKXjkoJcS2BgUwcwcWRnLUQXdQ=w2360-h1640-rw-v1", 
+                image: "Q1.png", 
                 choices: ["A. ประหยัดพลังงาน", "B. แสงสว่าง"],
                 answer: "A. ประหยัดพลังงาน"
             },
@@ -266,6 +267,7 @@
         startButton.addEventListener('click', () => {
             welcomePage.style.display = 'none';
             gamePage.style.display = 'block';
+            enableChoices();
             showQuestion(questions[currentQuestionIndex]);
         });
 
@@ -274,27 +276,34 @@
             questionImage.src = question.image;
             choice1Button.textContent = question.choices[0];
             choice2Button.textContent = question.choices[1];
-            enableChoices(); // Enable choices whenever a new question is displayed
         }
 
-        function showFireworks() {
+        function showcorrect() {
             disableChoices(); // Disable choices during fireworks display
 
-            const fireworksLeft = document.createElement('img');
-            fireworksLeft.src = 'https://media.tenor.com/eJdAzjdhWFUAAAAj/cute.gif';
-            fireworksLeft.alt = 'Fireworks';
-            fireworksLeft.classList.add('fireworks-left');
-            document.body.appendChild(fireworksLeft);
-
-            const fireworksRight = document.createElement('img');
-            fireworksRight.src = 'https://cliply.co/wp-content/uploads/2021/09/CLIPLY_372109170_FREE_FIREWORKS_400.gif';
-            fireworksRight.alt = 'Fireworks';
-            fireworksRight.classList.add('fireworks-right');
-            document.body.appendChild(fireworksRight);
-
+            const correct = document.createElement('img'); 
+            const idcorrect = document.getElementById('logoresult');
+            correct.src = 'correct.gif';
+            correct.alt = 'Fireworks';
+            correct.className ='logo-bottom';
+            idcorrect.appendChild(correct);
             setTimeout(() => {
-                fireworksLeft.remove();
-                fireworksRight.remove();
+                idcorrect.removeChild(idcorrect.firstChild);
+                moveNext();
+            }, 3000); // Remove fireworks after 3 seconds
+        }
+
+        function showwrong() {
+            disableChoices(); // Disable choices during fireworks display
+
+            const wrong = document.createElement('img'); 
+            const idwrong = document.getElementById('logoresult');
+            wrong.src = 'wrong.gif';
+            wrong.alt = 'Fireworks';
+            wrong.className ='logo-bottom';
+            idwrong.appendChild(wrong);
+            setTimeout(() => {
+                idwrong.removeChild(idwrong.firstChild);
                 moveNext();
             }, 3000); // Remove fireworks after 3 seconds
         }
@@ -302,6 +311,7 @@
         function moveNext() {
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
+                enableChoices(); // Enable choices whenever a new question is displayed
                 showQuestion(questions[currentQuestionIndex]);
             } else {
                 questionContainer.style.display = 'none';
@@ -315,9 +325,9 @@
             const question = questions[currentQuestionIndex];
             if (choice === question.answer) {
                 score++;
-                moveNext();
+                showcorrect();
             } else {
-                moveNext();
+                showwrong();
             }
         }
 
