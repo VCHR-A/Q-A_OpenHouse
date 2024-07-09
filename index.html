@@ -58,6 +58,21 @@
             margin-bottom: 10px;   
         }
 
+        .btndisabled {
+            background-color: #5b5b5b;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 40%;
+            font-family: 'Baloo Bhai 2', cursive;
+            transition: all 0.5s;
+            font-size: 1rem; /* Increase button font size */
+            display: inline-block;
+        }
+
         .btnstart {
             background-color: #66bb6a;
             color: #fff;
@@ -97,7 +112,7 @@
           content: '\00bb';
           opacity: 0;
           transition: 0.5s;
-          font-size: 1.5rem;
+          font-size: 1rem;
         }
 
         .btn:hover {
@@ -136,7 +151,7 @@
             font-family: 'Baloo Bhai 2';
             font-style: normal;
             font-weight: 400;
-            src: local('Baloo Bhai 2'), url('https://fonts.gstatic.com/s/baloobhai2/v6/I_urMpiDcvA0Yc7IGmV5ugWGiShB6aGz.woff2') format('woff2');
+            src: local('Baloo Bhai 2');
         }
 
         /* Positioning for fireworks */
@@ -151,12 +166,36 @@
         #question {
             margin: 10px 0px 10px 0px ;
         }
+
+        .floating-up {  
+		    animation-name: floating-up;
+		    animation-duration: 1s;
+		    animation-iteration-count: 1;
+		    animation-timing-function: ease-in-out;
+		    margin-left: 30px;
+		    margin-top: 5px;
+            color: green;
+	    }
+        .floating-up2 {  
+		    animation-name: floating-up;
+		    animation-duration: 1s;
+		    animation-iteration-count: 1;
+		    animation-timing-function: ease-in-out;
+		    margin-left: 30px;
+		    margin-top: 5px;
+            color: rgb(228, 1, 1);
+	    }
+	    @keyframes floating-up {
+		    0% { transform: translate(0,  30px); }
+		    100%   { transform: translate(0, 0px); } 
+	    }
+	
     </style>
 </head>
 <body>
-    <dev>
+    <div>
         <img src="Banner.png" alt="Game Logo" width="300 vh">
-    </dev>
+    </div>
     <div class="container" id="welcome-page">
         <img src="Q&A.png" alt="Game Logo" class="logo">
         <h1>Welcome to Mini Q&A Game</h1>
@@ -168,8 +207,19 @@
         
         <div class="image-card">
             <div id="question-container" class="thai">
-                <img id="question-image" src="" alt="Question Image" width="300vw">
+                <picture>
+                    <img id="question-image" src="" loading="lazy" alt="Question Image" width="300vw">
                 <div id="question"></div>
+                <div id="point" class="" style=
+                    "height: 150px; width: 150px;
+                    background: transparent;
+                    padding: 10px;
+                    position: absolute;
+                    left: 75%;
+                    top: 45%;
+			        font-weight: bold;">
+                
+                </div>
                 <button class="btn thai" id="choice1"><span ></span></button>
                 <button class="btn thai" id="choice2"><span ></span></button>
             </div>
@@ -262,6 +312,14 @@
         const scoreContainer = document.getElementById('score-container');
         const finalScoreElement = document.getElementById('final-score');
         const restartButton = document.getElementById('restart');
+        const showpoint = document.getElementById('point');
+
+
+        // Preload all images
+        function preloadImages(image) {  
+            const img = new Image();
+            img.src = image;
+        }
 
         startButton.addEventListener('click', () => {
             welcomePage.style.display = 'none';
@@ -270,12 +328,17 @@
             showQuestion(questions[currentQuestionIndex]);
         });
 
-        function showQuestion(question) {
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
             questionElement.textContent = question.question;
-            questionImage.src = question.image;
             choice1Button.textContent = question.choices[0];
             choice2Button.textContent = question.choices[1];
+            questionImage.src = question.image;
+            if(currentQuestionIndex < questions.length){
+                preloadImages(questions[currentQuestionIndex + 1].image);
+            }
         }
+
 
         function showcorrect() {
             disableChoices(); // Disable choices during fireworks display
@@ -286,6 +349,8 @@
             correct.alt = 'Fireworks';
             correct.className ='logo-bottom';
             idcorrect.appendChild(correct);
+            showpoint.classList.add('floating-up');
+            showpoint.textContent = '+1';
             setTimeout(() => {
                 idcorrect.removeChild(idcorrect.firstChild);
                 moveNext();
@@ -294,7 +359,8 @@
 
         function showwrong() {
             disableChoices(); // Disable choices during fireworks display
-
+            showpoint.classList.add('floating-up2');
+            showpoint.textContent = '-1';
             const wrong = document.createElement('img'); 
             const idwrong = document.getElementById('logoresult');
             wrong.src = 'wrong.gif';
@@ -308,6 +374,9 @@
         }
 
         function moveNext() {
+            showpoint.classList.remove('floating-up');
+            showpoint.classList.remove('floating-up2');
+            showpoint.textContent = "";
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 enableChoices(); // Enable choices whenever a new question is displayed
@@ -333,11 +402,18 @@
         function disableChoices() {
             choice1Button.classList.add('disabled');
             choice2Button.classList.add('disabled');
+            choice1Button.classList.add('btndisabled');
+            choice2Button.classList.add('btndisabled');
+            choice1Button.classList.remove('btn');
+            choice2Button.classList.remove('btn');
+
         }
 
         function enableChoices() {
             choice1Button.classList.remove('disabled');
             choice2Button.classList.remove('disabled');
+            choice1Button.classList.add('btn');
+            choice2Button.classList.add('btn');
         }
 
         choice1Button.addEventListener('click', () => {
