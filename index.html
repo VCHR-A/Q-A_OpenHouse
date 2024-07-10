@@ -348,10 +348,10 @@
             setTimeout(() => {
                 welcomePage.style.display = 'none';
                 gamePage.style.display = 'block';
-                enableChoices();
+                
                 showQuestion(questions[currentQuestionIndex]);
             }, 1500);
-            
+            enableChoices();
         });
 
         function showQuestion() {
