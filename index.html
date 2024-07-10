@@ -72,6 +72,7 @@
             transition: all 0.5s;
             font-size: 1rem; /* Increase button font size */
             display: inline-block;
+            box-shadow: 3px 8px #999;
         }
 
         .btnstart {
@@ -85,7 +86,7 @@
             width: 40%;
             font-family: 'Baloo Bhai 2', cursive;
             transition: all 0.5s;
-            font-size: 16px; /* Increase button font size */
+            font-size: 3rem;
             display: inline-block;
             cursor: pointer;
             display: inline-block;
@@ -103,25 +104,35 @@
             border-radius: 5px;
             width: 40%;
             font-family: 'Baloo Bhai 2', cursive;
-            transition: all 0.5s;
+            transition: 0.15s;
             font-size: 1rem; /* Increase button font size */
             display: inline-block;
-
+            box-shadow: 3px 8px #c4c4c4;
+            
         }
         
         .btn:before {
-          content: '\00bb';
+          content: '🥕';
           opacity: 0;
           transition: 0.5s;
           font-size: 1rem;
+          text-shadow: 0.5px 1px 0.5px #000;
         }
 
         .btn:hover {
-             padding-left: 25px;
+             
+             background-color: #37a63d;
+             
         }
 
         .btn:hover:before{
             opacity: 1;
+        }
+
+        .btn:active {
+            background-color: #37a63d;
+            box-shadow: 3px 4px #666;
+            transform: translateY(4px);
         }
 
         #score-container {
@@ -199,8 +210,8 @@
     </div>
     <div class="container" id="welcome-page">
         <img src="Q&A.png" alt="Game Logo" class="logo">
-        <h1>Welcome to Mini Q&A Game</h1>
-        <button id="start-game" class="btnstart thai">Start Game</button>
+        <h1>Welcome to Mini Q&A Game🍃</h1>
+        <button id="start-game" class="btnstart">Start Game</button>
     </div>
 
     <div class="container" id="game-page" style="display: none;">
@@ -348,7 +359,7 @@
             setTimeout(() => {
                 idcorrect.removeChild(idcorrect.firstChild);
                 moveNext();
-            }, 3000); // Remove fireworks after 3 seconds
+            }, 1500); // Remove fireworks after 3 seconds
         }
 
         function showwrong() {
@@ -364,7 +375,7 @@
             setTimeout(() => {
                 idwrong.removeChild(idwrong.firstChild);
                 moveNext();
-            }, 3000); // Remove fireworks after 3 seconds
+            }, 1500); // Remove fireworks after 3 seconds
         }
 
         function moveNext() {
@@ -387,6 +398,7 @@
             const question = questions[currentQuestionIndex];
             if (choice === question.answer) {
                 score++;
+                choice = "aaaaaa";
                 showcorrect();
             } else {
                 showwrong();
