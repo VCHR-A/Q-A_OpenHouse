@@ -205,6 +205,21 @@
     </style>
 </head>
 <body>
+    <audio id="diostart">
+        <source src="start.ogg" type="audio/ogg">
+        <source src="start.mp3" type="audio/mpeg">
+
+      </audio>
+      <audio id="diocorrect">
+        <source src="correct.ogg" type="audio/ogg">
+        <source src="correct.mp3" type="audio/mpeg">
+
+      </audio>
+      <audio id="diowrong">
+        <source src="wrong.ogg" type="audio/ogg">
+        <source src="wrong.mp3" type="audio/mpeg">
+
+      </audio>
     <div>
         <img src="Banner.png" alt="Game Logo" width="300 vh">
     </div>
@@ -304,7 +319,9 @@
 
         let currentQuestionIndex = 0;
         let score = 0;
-
+        const soundstart = document.getElementById("diostart"); 
+        const soundcorrect = document.getElementById("diocorrect"); 
+        const soundwrong = document.getElementById("diowrong"); 
         const welcomePage = document.getElementById('welcome-page');
         const gamePage = document.getElementById('game-page');
         const startButton = document.getElementById('start-game');
@@ -327,10 +344,14 @@
         }
 
         startButton.addEventListener('click', () => {
-            welcomePage.style.display = 'none';
-            gamePage.style.display = 'block';
-            enableChoices();
-            showQuestion(questions[currentQuestionIndex]);
+            soundstart.play();
+            setTimeout(() => {
+                welcomePage.style.display = 'none';
+                gamePage.style.display = 'block';
+                enableChoices();
+                showQuestion(questions[currentQuestionIndex]);
+            }, 1500);
+            
         });
 
         function showQuestion() {
@@ -347,7 +368,7 @@
 
         function showcorrect() {
             disableChoices(); // Disable choices during fireworks display
-
+            soundcorrect.play();
             const correct = document.createElement('img'); 
             const idcorrect = document.getElementById('logoresult');
             correct.src = 'correct.gif';
@@ -364,6 +385,7 @@
 
         function showwrong() {
             disableChoices(); // Disable choices during fireworks display
+            soundwrong.play();
             showpoint.classList.add('floating-up2');
             showpoint.textContent = '-1';
             const wrong = document.createElement('img'); 
@@ -398,7 +420,6 @@
             const question = questions[currentQuestionIndex];
             if (choice === question.answer) {
                 score++;
-                choice = "aaaaaa";
                 showcorrect();
             } else {
                 showwrong();
