@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Itim&display=swap">
     <style>
         body {
-            font-family: 'Baloo Bhai 2', cursive;
+            font-family: 'Itim', cursive;
             background-color: #e0f7fa;
             background-image: url('https://marketplace.canva.com/EAFy6e05kw0/1/0/900w/canva-green-yellow-abstract-phone-wallpaper-CqyeS4Oc038.jpg');
             background-size: 100%;
@@ -20,7 +20,7 @@
             height: 100vh;
             margin: 0;
             position: relative;
-            font-size: 18px; /* Increase body font size */
+            font-size: 2rem; /* Increase body font size */
         }
 
         .container {
@@ -70,30 +70,46 @@
             cursor: pointer;
             border-radius: 5px;
             width: 40%;
-            font-family: 'Baloo Bhai 2', cursive;
+            font-family: 'Itim', cursive;
             transition: all 0.5s;
-            font-size: 1rem; /* Increase button font size */
+            font-size: 1.5rem;
             display: inline-block;
             box-shadow: 3px 8px #999;
+            
         }
 
         .btnstart {
-            background-color: #66bb6a;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            margin: 10px;
+            background: #fbca1f;
+            font-family: 'Itim', cursive;
+            padding: 0.6em 1.3em;
+            font-weight: 900;
+            font-size: 2rem;
+            border: 3px solid black;
+            border-radius: 0.4em;
+            box-shadow: 0.1em 0.1em;
             cursor: pointer;
-            border-radius: 5px;
-            width: 40%;
-            font-family: 'Baloo Bhai 2', cursive;
-            transition: all 0.5s;
-            font-size: 3rem;
-            display: inline-block;
+        }
+
+        .btnstart:hover {
+          transform: translate(-0.05em, -0.05em);
+          box-shadow: 0.15em 0.15em;
+        }
+
+        .btnstart:active {
+          transform: translate(0.05em, 0.05em);
+          box-shadow: 0.05em 0.05em;
+        }
+
+        .btnstartdis {
+            background: #5a5a5a;
+            font-family: 'Itim', cursive;
+            padding: 0.6em 1.3em;
+            font-weight: 900;
+            font-size: 2rem;
+            border: 3px solid black;
+            border-radius: 0.4em;
+            box-shadow: 0.1em 0.1em;
             cursor: pointer;
-            display: inline-block;
-            position: relative;
-            transition: 0.5s;
         }
 
         .btn {
@@ -105,9 +121,9 @@
             cursor: pointer;
             border-radius: 5px;
             width: 40%;
-            font-family: 'Baloo Bhai 2', cursive;
+            font-family: 'Itim', cursive;
             transition: 0.15s;
-            font-size: 1rem; /* Increase button font size */
+            font-size: 1.5rem; /* Increase button font size */
             display: inline-block;
             box-shadow: 3px 8px #c4c4c4;
             
@@ -117,7 +133,7 @@
           content: '🥕';
           opacity: 0;
           transition: 0.5s;
-          font-size: 1rem;
+          font-size: 1.5rem;
           text-shadow: 0.5px 1px 0.5px #000;
         }
 
@@ -144,7 +160,7 @@
 
         .image-card {
             margin: 20px auto;
-            max-width: 70%;
+            max-width: 90%;
             box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
@@ -158,14 +174,7 @@
 
         /* Thai font style */
         .thai {
-            font-family: 'Sarabun', sans-serif;
-        }
-
-        @font-face {
-            font-family: 'Baloo Bhai 2';
-            font-style: normal;
-            font-weight: 400;
-            src: local('Baloo Bhai 2');
+            font-family: 'Itim', cursive;
         }
 
         /* Positioning for fireworks */
@@ -208,17 +217,14 @@
 </head>
 <body>
     <audio id="diostart">
-        <source src="start.ogg" type="audio/ogg">
         <source src="start.mp3" type="audio/mpeg">
 
       </audio>
       <audio id="diocorrect">
-        <source src="correct.ogg" type="audio/ogg">
         <source src="correct.mp3" type="audio/mpeg">
 
       </audio>
       <audio id="diowrong">
-        <source src="wrong.ogg" type="audio/ogg">
         <source src="wrong.mp3" type="audio/mpeg">
 
       </audio>
@@ -229,8 +235,8 @@
                     padding-bottom: 5vh;">
     </div>
     <div class="container" id="welcome-page">
-        <p style="font-size: 9rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #8d6500e6; margin:0px; margin-bottom:-1vh; color: #fed385;">เกม</p>
-        <p style="font-size: 3rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #8d6500e6; margin:0px; color: #fed385;">ตอบคำถามรักษ์โลก</p>
+        <p style="font-size: 9rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #97000c; margin:0px; margin-bottom:-1vh; color: #ef4754;">เกม</p>
+        <p style="font-size: 3rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #8d6500e6; margin:0px; color: #fbca1f;">ตอบคำถาม<font style="text-shadow: 3px 2px #014f31; color:#4bd706;"><b>"รักษ์โลก"</b></font></p>
         <img src="https://png.pngtree.com/png-vector/20190803/ourlarge/pngtree-nature-of-power-bulb-business-flat-line-filled-icon-vector-png-image_1649075.jpg" style="max-width:60vw; display: block; margin-left: auto; margin-right: auto;">
         <button id="start-game" class="btnstart">เริ่มเกม</button>
     </div>
@@ -252,9 +258,9 @@
         </div>
         <div id="logoresult"></div>
         <div id="score-container" class="thai">
-            <h2>Game Over!</h2>
-            <p id="final-score"></p>
-            <button id="restart" class="btnstart thai">Restart</button>
+            <p style="font-size: 9rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #97000c; margin:0px; margin-bottom:-1vh; color: #ef4754;">จบเกม</p>
+            <p id="final-score" style="font-size: 5rem; font-family: 'Itim', cursive; text-shadow: 3px 2px #0d0055; margin:0px; margin-top:7vh; margin-bottom:5vh; color: #47a0ef;"></p>
+            <button id="restart" class="btnstart thai">เริ่มเกมใหม่</button>
         </div>
     </div>
 
@@ -350,11 +356,13 @@
         }
 
         startButton.addEventListener('click', () => {
+            document.getElementById('start-game').disabled = true;
+            startButton.classList.remove('btnstart');
+            startButton.classList.add('btnstartdis');
             soundstart.play();
             setTimeout(() => {
                 welcomePage.style.display = 'none';
                 gamePage.style.display = 'block';
-                
                 showQuestion(questions[currentQuestionIndex]);
             }, 1500);
             enableChoices();
@@ -418,7 +426,7 @@
                 questionContainer.style.display = 'none';
                 scoreContainer.style.display = 'block';
                 
-                finalScoreElement.textContent = `Your score is ${score}/${questions.length}.`;
+                finalScoreElement.textContent = `คุณได้คะแนน ${score}/${questions.length}`;
             }
         }
 
@@ -461,6 +469,9 @@
         });
 
         restartButton.addEventListener('click', () => {
+            document.getElementById('start-game').disabled = false;
+            startButton.classList.remove('btnstartdis');
+            startButton.classList.add('btnstart');
             currentQuestionIndex = 0;
             score = 0;
             scoreContainer.style.display = 'none';
@@ -471,7 +482,6 @@
             gamePage.style.display = 'none';
             welcomePage.style.display = 'block';
         });
-
     </script>
 </body>
 </html>
